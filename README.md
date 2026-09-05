@@ -42,10 +42,10 @@
 
 ### 方式二：地址栏直接输入完整 URL
 
-如果未设置搜索引擎，也可以直接在地址栏输入完整 URL：
-https://chat.deepseek.com/?q=你的问题
-若要指定模式，加上 `&mode=xxx`：
-https://chat.deepseek.com/?q=你的问题&mode=explain
+如果未设置搜索引擎，也可以直接在地址栏输入以下格式：
+
+- 基础搜索：`https://chat.deepseek.com/?q=你的问题`
+- 指定模式：`https://chat.deepseek.com/?q=你的问题&mode=explain`
 
 ### 方式三：右键菜单
 

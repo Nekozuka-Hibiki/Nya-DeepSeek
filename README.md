@@ -4,7 +4,7 @@
 [![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Compatible-brightgreen)](https://www.tampermonkey.net/)
 [![Download](https://img.shields.io/badge/Download-安装-blue?style=flat&logo=github)](https://raw.githubusercontent.com/Nekozuka-Hibiki/Nya-DeepSeek/main/Nya-DeepSeek.user.js)
 
-> 一个油猴脚本，让你在任意网页快速调用 DeepSeek 提问，内置多种提问风格。
+> 一个油猴脚本，让你在任意网页快速调用 DeepSeek 提问，内置多种提问风格
 
 ## 功能
 
@@ -20,11 +20,11 @@
 
 ## 使用
 
-安装后，可以通过以下方式使用。
+安装后，可以通过以下方式使用
 
 ### 1. 通过地址栏
 
-脚本支持通过 URL 参数直接调用。
+脚本支持通过 URL 参数直接调用
 
 **方式一：设为浏览器搜索引擎**
 
@@ -36,7 +36,7 @@
    - 笨喵解释：快捷字词 `nyae`，URL `https://chat.deepseek.com/?q=%s&mode=explain`
    - 喵对比：快捷字词 `nyad`，URL `https://chat.deepseek.com/?q=%s&mode=decision`
    - 喵翻译/润色：快捷字词 `nyat`，URL `https://chat.deepseek.com/?q=%s&mode=translate`
-3. 保存后，在地址栏输入 `nya 你的问题` 并回车即可。
+3. 保存后，在地址栏输入 `nya 你的问题` 并回车即可
 
 **方式二：直接输入完整 URL**
 
@@ -54,9 +54,9 @@
 - ⚖️ 喵对比
 - 🌐 喵翻译/润色
 
-点击任意命令，输入问题，即可自动打开 DeepSeek 并发送。
+点击任意命令，输入问题，即可自动打开 DeepSeek 并发送
 
-也可以在任意页面右键 → 油猴菜单 → 选择模式 → 输入问题 → 自动打开 DeepSeek 并发送。
+也可以在任意页面右键 → 油猴菜单 → 选择模式 → 输入问题 → 自动打开 DeepSeek 并发送
 
 ## 🖼️ 图标
 

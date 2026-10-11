@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         喵搜~DeepSeek
 // @namespace    https://github.com/Nekozuka-Hibiki/Nya-DeepSeek
-// @version      26.9.6
+// @version      26.10.12
 // @description  https://chat.deepseek.com/?q=%s
 // @icon         https://upload.wikimedia.org/wikipedia/commons/9/95/DeepSeek-icon.svg
 // @author       Nekozuka-Hibiki

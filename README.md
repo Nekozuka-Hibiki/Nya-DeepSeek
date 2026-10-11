@@ -1,6 +1,6 @@
 # Nya-DeepSeek – 喵搜 DeepSeek
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 [![Tampermonkey](https://img.shields.io/badge/Tampermonkey-Compatible-brightgreen)](https://www.tampermonkey.net/)
 [![Download](https://img.shields.io/badge/Download-安装-blue?style=flat&logo=github)](https://raw.githubusercontent.com/Nekozuka-Hibiki/Nya-DeepSeek/main/Nya-DeepSeek.user.js)
 

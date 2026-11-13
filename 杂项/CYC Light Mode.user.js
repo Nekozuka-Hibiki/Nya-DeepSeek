@@ -5,7 +5,7 @@
 // @version      26.11.13
 // @author       Nekozuka-Hibiki
 // @license      GPL-3.0
-// @homepageURL  https://github.com/Nekozuka-Hibiki/QwQNT-transisio-scriptio-packs
+// @homepageURL  https://github.com/Nekozuka-Hibiki/Nya-DeepSeek
 // @icon         https://www.cycani.org/favicon.ico
 // @match        https://www.cycani.org/*
 // @match        https://cycani.org/*

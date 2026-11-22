@@ -72,3 +72,9 @@ MIT © [Nekozuka-Hibiki](https://github.com/Nekozuka-Hibiki)
 - [Tampermonkey](https://www.tampermonkey.net) – 用户脚本管理器
 
 **喵～ 让搜索更优雅 🐾**
+
+## 杂项
+
+https://github.com/Nekozuka-Hibiki/Nya-DeepSeek/blob/main/%E6%9D%82%E9%A1%B9/CYC%20Light%20Mode.user.js
+https://github.com/Nekozuka-Hibiki/Nya-DeepSeek/blob/main/%E6%9D%82%E9%A1%B9/DeepSeek%20%E5%8E%86%E5%8F%B2%E5%AF%B9%E8%AF%9D%E5%85%A8%E9%80%89%E4%B8%8E%E6%89%B9%E9%87%8F%E7%AE%A1%E7%90%86.user.js
+https://github.com/Nekozuka-Hibiki/Nya-DeepSeek/blob/main/%E6%9D%82%E9%A1%B9/CYC%20Light%20Mode.user.js

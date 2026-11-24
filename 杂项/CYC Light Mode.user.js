@@ -2,7 +2,7 @@
 // @name         CYC Light Mode
 // @description  全站云母浅色适配 分类页布局优化 坚果云自动同步
 // @namespace    https://github.com/Nekozuka-Hibiki
-// @version      26.11.22
+// @version      26.11.25
 // @author       Nekozuka-Hibiki
 // @license      GPL-3.0
 // @homepageURL  https://github.com/Nekozuka-Hibiki/Nya-DeepSeek
@@ -52,7 +52,8 @@
         HISTORY_ITEM: 'cyc-history-item',
         HISTORY_UNDONE: 'is-undone',
         SYNC_MASK: 'cyc-sync-mask',
-        SYNC_MODAL: 'cyc-sync-modal'
+        SYNC_MODAL: 'cyc-sync-modal',
+        SEARCH_INPUT: 'cyc-search-input'
     });
 
     const SYNC_STATUS = Object.freeze({
@@ -65,7 +66,7 @@
 
     const DAV_ROOT = 'https://dav.jianguoyun.com/dav';
     const BACKUP_NAME = 'cyc-backup.json';
-    const HISTORY_MAX = 200;
+    const HISTORY_MAX = 20;
     const ENC_PREFIX = 'aes1:';
 
     // ========== 样式 ==========
@@ -512,6 +513,32 @@ button.h-8.shrink-0.rounded-full.border:hover:not([aria-pressed="true"]) {
   border-bottom: 1px solid rgba(0,0,0,0.07) !important;
   padding-bottom: 12px !important;
 }
+
+/* 搜索框 */
+.cyc-search-input {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 8px 12px !important;
+  margin-bottom: 10px !important;
+  font-size: 13px !important;
+  font-family: inherit !important;
+  border: 1px solid var(--cyc-pop-border) !important;
+  border-radius: 10px !important;
+  background: var(--cyc-pop-bg) !important;
+  backdrop-filter: var(--cyc-pop-blur) !important;
+  -webkit-backdrop-filter: var(--cyc-pop-blur) !important;
+  color: #0f172a !important;
+  outline: none !important;
+  transition: border-color 0.15s, box-shadow 0.15s !important;
+}
+.cyc-search-input:focus {
+  border-color: rgba(124,58,237,0.5) !important;
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.12) !important;
+}
+.cyc-search-input::placeholder {
+  color: rgba(0,0,0,0.4) !important;
+}
+
 .cyc-hidden-item {
   display: flex !important;
   align-items: center !important;
@@ -1298,17 +1325,14 @@ button.h-8.shrink-0.rounded-full.border:hover:not([aria-pressed="true"]) {
             if (!key) return;
             const cur = best.get(key);
             const tt = t || 0;
-            // 规则：时间戳大的优先；相等时 hide 优先
             const take = !cur || tt > cur.t || (tt === cur.t && eff === 'hide' && cur.eff !== 'hide');
             if (take) best.set(key, { eff, t: tt, title: title || (cur ? cur.title : '') });
         };
-        // 兜底旧数据
         for (const list of (extraLists || [])) {
             for (const h of (list || [])) {
                 if (h && h.key) put(h.key, 'hide', h.t || 0, h.title);
             }
         }
-        // 重放历史
         for (const h of (history || [])) {
             if (!h || !h.key) continue;
             const base = h.type === 'hide' ? 'hide' : 'unhide';
@@ -1580,7 +1604,7 @@ button.h-8.shrink-0.rounded-full.border:hover:not([aria-pressed="true"]) {
         btn.className = CLASSES.CARD_HIDE_BTN;
         btn.type = 'button';
         btn.title = '屏蔽此番剧';
-        btn.textContent = '\u00d7';
+        btn.textContent = '×';
 
         btn.addEventListener('pointerdown', e => {
             e.preventDefault();
@@ -1743,6 +1767,7 @@ button.h-8.shrink-0.rounded-full.border:hover:not([aria-pressed="true"]) {
     let viewMode = 'list';
 
     const selectedKeys = new Set();
+    let searchKeyword = '';
     let panelSelectAllEl = null;
     let panelCountEl = null;
     let panelDelBtnEl = null;
@@ -1842,6 +1867,16 @@ button.h-8.shrink-0.rounded-full.border:hover:not([aria-pressed="true"]) {
         head.appendChild(syncToggleEl);
 
         panelListEl = document.createElement('div');
+
+        // 搜索框
+        const searchInput = document.createElement('input');
+        searchInput.type = 'text';
+        searchInput.className = CLASSES.SEARCH_INPUT;
+        searchInput.placeholder = '搜索已屏蔽的番剧…';
+        searchInput.addEventListener('input', (e) => {
+            searchKeyword = e.target.value.trim().toLowerCase();
+            updatePanel();
+        });
 
         // 多选工具条
         const bar = document.createElement('div');
@@ -1958,6 +1993,7 @@ button.h-8.shrink-0.rounded-full.border:hover:not([aria-pressed="true"]) {
         histListEl.style.display = 'none';
 
         panelEl.appendChild(head);
+        panelEl.appendChild(searchInput);
         panelEl.appendChild(bar);
         panelEl.appendChild(panelListEl);
         panelEl.appendChild(histToolbarEl);
@@ -1988,17 +2024,22 @@ button.h-8.shrink-0.rounded-full.border:hover:not([aria-pressed="true"]) {
         const valid = new Set(list.map(x => x.key));
         Array.from(selectedKeys).forEach(k => { if (!valid.has(k)) selectedKeys.delete(k); });
 
-        if (list.length === 0) {
+        // 按关键词过滤
+        const filtered = searchKeyword
+            ? list.filter(item => (item.title || item.key).toLowerCase().includes(searchKeyword))
+            : list;
+
+        if (filtered.length === 0) {
             const empty = document.createElement('div');
             empty.className = CLASSES.HIDDEN_EMPTY;
-            empty.textContent = '暂无屏蔽';
+            empty.textContent = searchKeyword ? '没有匹配的结果' : '暂无屏蔽';
             panelListEl.appendChild(empty);
             syncSelectionUI(list);
             return;
         }
 
         const frag = document.createDocumentFragment();
-        list.forEach(item => {
+        filtered.forEach(item => {
             const row = document.createElement('div');
             row.className = CLASSES.HIDDEN_ITEM;
 
@@ -2246,7 +2287,7 @@ button.h-8.shrink-0.rounded-full.border:hover:not([aria-pressed="true"]) {
         syncModalEl = document.createElement('div');
         syncModalEl.className = CLASSES.SYNC_MODAL;
         syncModalEl.innerHTML =
-            '<div class="cyc-sync-head"><span>坚果云同步</span><button type="button" class="cyc-sync-mini cyc-sync-close" title="关闭">\u00d7</button></div>' +
+            '<div class="cyc-sync-head"><span>坚果云同步</span><button type="button" class="cyc-sync-mini cyc-sync-close" title="关闭">×</button></div>' +
             '<label>账号邮箱<input type="email" class="cyc-sync-email" autocomplete="off" placeholder="坚果云账号邮箱"></label>' +
             '<label>应用密码（不是登录密码）<div class="cyc-sync-pwdrow">' +
             '<input type="password" class="cyc-sync-pwd" autocomplete="new-password" placeholder="留空表示不修改">' +
